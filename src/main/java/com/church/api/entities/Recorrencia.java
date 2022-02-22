@@ -12,12 +12,13 @@ import com.church.api.domain.BaseDomain;
 import com.church.api.entities.enums.DiaSemana;
 import com.church.api.entities.enums.TipoRecorrencia;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 public class Recorrencia extends BaseDomain {
 

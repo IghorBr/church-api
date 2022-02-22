@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public abstract class BaseDomain {
 	
-	public abstract Long getId();
+	protected abstract Long getId();
 	
 	@Override
 	public String toString() {

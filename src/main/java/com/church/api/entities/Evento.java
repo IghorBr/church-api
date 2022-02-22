@@ -44,4 +44,13 @@ public class Evento extends BaseDomain {
 	@JoinColumn(name="recorrencia_id")
 	private Recorrencia recorrencia;
 	
+	public Evento(Long id, String descricao, Date dataEvento, Recorrencia recorrencia, Templo templo) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
+		this.dataEvento = dataEvento;
+		this.recorrencia = recorrencia;
+		this.templo = templo;
+	}
+	
 }

@@ -27,4 +27,13 @@ public class Pastor extends BaseDomain {
 	private Date dataPosse;
 	private Date dataSaida;
 	
+	public Pastor(Long id, String nome, String sobrenome, Date dataPosse, Date dataSaida) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.dataPosse = dataPosse;
+		this.dataSaida = dataSaida;
+	}
+	
 }

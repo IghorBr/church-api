@@ -1,13 +1,13 @@
 package com.church.api.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,11 +25,18 @@ public class Igreja extends Templo {
 	@Setter(value = AccessLevel.NONE)
 	private List<Congregacao> congregacoes = new ArrayList<Congregacao>();
 	
-	@ManyToMany
-	@JoinTable(
-		name="PASTOR_IGREJA",
-		joinColumns = @JoinColumn(name="igreja_id"),
-		inverseJoinColumns = @JoinColumn(name="pastor_id")
-	)
-	private List<Pastor> pastores = new ArrayList<Pastor>();
+	@OneToOne
+	@JoinColumn(name = "pastor_id", referencedColumnName = "id")
+	private Pastor pastorPresidente;
+	
+	public Igreja(Long id, String nomeCompleto, String nomeCurto, Date dataInauguracao, String telefone,
+			Endereco endereco, String cnpj) {
+		super(id, nomeCompleto, nomeCurto, dataInauguracao, telefone, endereco);
+		this.cnpj = cnpj;
+	}
+	
+	public void addCongregacao(Congregacao... congregacoes) {
+		for (Congregacao c : congregacoes) 
+			this.congregacoes.add(c);
+	}
 }

@@ -44,4 +44,19 @@ public abstract class Templo extends BaseDomain {
 	@Setter(value = AccessLevel.NONE)
 	private List<Evento> eventos = new ArrayList<Evento>();
 	
+	public Templo(Long id, String nomeCompleto, String nomeCurto, Date dataInauguracao, String telefone, Endereco endereco) {
+		super();
+		this.id = id;
+		this.nomeCompleto = nomeCompleto;
+		this.nomeCurto = nomeCurto;
+		this.dataInauguracao = dataInauguracao;
+		this.telefone = telefone;
+		this.endereco = endereco;
+	}
+	
+	public void addEvento(Evento... eventos) {
+		for (Evento e : eventos) 
+			this.eventos.add(e);
+	}
+	
 }

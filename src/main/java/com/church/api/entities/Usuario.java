@@ -57,4 +57,19 @@ public class Usuario extends BaseDomain {
 	)
 	@Setter(value = AccessLevel.NONE)
 	private List<Templo> templosFavoritos = new ArrayList<Templo>();
+
+	public Usuario(Long id,  String nome, String sobrenome, String email, String senha, TipoUsuario tipoUsuario) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.senha = senha;
+		this.tipoUsuario = tipoUsuario;
+	}
+	
+	public void addTemplo(Templo... templos) {
+		for (Templo t : templos)
+			this.templosFavoritos.add(t);
+	}
 }

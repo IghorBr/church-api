@@ -32,4 +32,14 @@ public class Endereco extends BaseDomain {
 	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
 	private Templo templo;
 
+	public Endereco(Long id, String logradouro, String uf, String municipio, String cep, String numero, String bairro) {
+		super();
+		this.id = id;
+		this.logradouro = logradouro;
+		this.uf = uf;
+		this.municipio = municipio;
+		this.cep = cep;
+		this.numero = numero;
+		this.bairro = bairro;
+	}
 }

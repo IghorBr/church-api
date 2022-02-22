@@ -3,16 +3,22 @@ package com.church.api.domain;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class BaseServiceImpl<T extends BaseDomain> implements BaseService<T> {
+public abstract class BaseServiceImpl<T extends BaseDomain> implements BaseService<T> {
 
 	@Autowired
 	private BaseRepository<T> baseRepository;
+	
+	@PersistenceContext
+	protected EntityManager entityManager;
 
 	@Override
 	public T save(T entity) {
@@ -34,12 +40,6 @@ public class BaseServiceImpl<T extends BaseDomain> implements BaseService<T> {
         return baseRepository.findById(entityId);
     }
 	
-	
-	@Override
-	public T update(T entity) {
-		return (T) baseRepository.save(entity);
-	}
-
 	@Override
 	public T updateById(T entity, Long entityId) {
 		Optional<T> optional = baseRepository.findById(entityId);
@@ -48,12 +48,6 @@ public class BaseServiceImpl<T extends BaseDomain> implements BaseService<T> {
         }else{
             return null;
         }
-	}
-
-	@Override
-	public void delete(T entity) {
-		baseRepository.delete(entity);
-		
 	}
 
 	@Override
