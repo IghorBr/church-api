@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.church.api.domain;
 
 import java.util.List;
 import java.util.Optional;
