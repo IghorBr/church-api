@@ -3,6 +3,8 @@ package com.church.api.dtos;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.church.api.domain.BaseDTO;
+
 import lombok.Getter;
 import lombok.Setter;
 

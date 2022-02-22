@@ -1,5 +1,7 @@
 package com.church.api.dtos;
 
+import com.church.api.domain.BaseDTO;
+
 import lombok.Getter;
 import lombok.Setter;
 

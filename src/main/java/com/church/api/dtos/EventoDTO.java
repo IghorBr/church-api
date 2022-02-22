@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.church.api.domain.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;

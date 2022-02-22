@@ -1,4 +1,4 @@
-package com.church.api.dtos;
+package com.church.api.domain;
 
 import java.io.Serializable;
 
