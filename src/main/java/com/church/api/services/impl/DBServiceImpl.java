@@ -55,22 +55,22 @@ public class DBServiceImpl {
 		end1.setTemplo(pib);
 		user1.addTemplo(pib);
 		
-		usuarioService.saveAll(Arrays.asList(user1, user2));
+		pib.setPastorPresidente(p1);
+		
 		temploService.save(pib);
+		usuarioService.saveAll(Arrays.asList(user1));
+		this.pastorService.save(p1);
 		
 		Endereco end2 = new Endereco(null, "Rua das Marrecas", "RJ", "Nova Iguaçu", "Não sei", "Tmb não sei", null);
 		Congregacao cng = new Congregacao(null, "Congregação em Vila Ômega", "Congregação", sdf.parse("20/05/2007"), null, end2, pib);
 		
 		end2.setTemplo(cng);
 		user2.addTemplo(cng);
-		
-		usuarioService.saveAll(Arrays.asList(user2));
-		temploService.save(cng);
-		
-		pib.setPastorPresidente(p1);
 		pib.addCongregacao(cng);
 		
-		this.pastorService.saveAll(Arrays.asList(p1, p2));
+		temploService.save(cng);
+		usuarioService.saveAll(Arrays.asList(user2));
+		
 		temploService.save(pib);
 		
 		Recorrencia recOracaoDomingo = new Recorrencia(null, DiaSemana.DOMINGO, 
