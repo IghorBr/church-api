@@ -24,4 +24,9 @@ public class Congregacao extends Templo {
 		super(id, nomeCompleto, nomeCurto, dataInauguracao, telefone, endereco);
 		this.igrejaMatriz = igrejaMatriz;
 	}
+
+	public Congregacao(Long id, String nomeCompleto, String nomeCurto, Date dataInauguracao, String telefone,
+			Endereco endereco) {
+		super(id, nomeCompleto, nomeCurto, dataInauguracao, telefone, endereco);
+	}
 }

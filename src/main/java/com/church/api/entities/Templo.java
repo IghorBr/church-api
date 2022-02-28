@@ -15,7 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.modelmapper.ModelMapper;
+
 import com.church.api.domain.BaseDomain;
+import com.church.api.dtos.TemploDTO;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -58,6 +61,21 @@ public abstract class Templo extends BaseDomain {
 	public void addEvento(Evento... eventos) {
 		for (Evento e : eventos) 
 			this.eventos.add(e);
+	}
+
+	public static Templo dtoToEntity(boolean isTemplo, TemploDTO dto) {
+		Templo templo;
+		ModelMapper mapper = new ModelMapper();
+		Endereco endereco = mapper.map(dto.getEndereco(), Endereco.class);
+		
+		if (isTemplo) 
+			templo = new Igreja(null, dto.getNomeCompleto(), dto.getNomeCurto(), dto.getDataInauguracao(),
+					dto.getTelefone(), endereco, dto.getCnpj());
+		else
+			templo = new Congregacao(null, dto.getNomeCompleto(), dto.getNomeCurto(), dto.getDataInauguracao(),
+					dto.getTelefone(), endereco);
+		
+		return templo;
 	}
 	
 }
