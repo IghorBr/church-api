@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.church.api.domain.BaseDomain;
 
 import lombok.Getter;
@@ -24,7 +26,11 @@ public class Pastor extends BaseDomain {
 	
 	private String nome;
 	private String sobrenome;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataPosse;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataSaida;
 	
 	public Pastor(Long id, String nome, String sobrenome, Date dataPosse, Date dataSaida) {

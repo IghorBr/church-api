@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.church.api.domain.BaseDomain;
 import com.church.api.entities.enums.TipoUsuario;
 
@@ -44,6 +46,8 @@ public class Usuario extends BaseDomain {
 	private String nome;
 	private String sobrenome;
 	private String senha;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataCriacao;
 	
 	@Enumerated(EnumType.STRING)

@@ -28,5 +28,4 @@ public class TemploDTO extends BaseDTO {
 	
 	@NotNull private EnderecoDTO endereco;
 	private String cnpj;
-
 }
