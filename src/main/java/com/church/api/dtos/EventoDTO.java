@@ -8,9 +8,11 @@ import com.church.api.domain.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
+@NoArgsConstructor
 public class EventoDTO extends BaseDTO {
 	private static final long serialVersionUID = 8956255713169730864L;
 	

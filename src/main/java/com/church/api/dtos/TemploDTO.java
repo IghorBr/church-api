@@ -9,9 +9,11 @@ import com.church.api.domain.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
+@NoArgsConstructor
 public class TemploDTO extends BaseDTO {
 	private static final long serialVersionUID = -2119409870148023145L;
 	
