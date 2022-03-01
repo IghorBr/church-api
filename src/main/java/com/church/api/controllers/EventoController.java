@@ -2,6 +2,7 @@ package com.church.api.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.Valid;
 
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +23,7 @@ import com.church.api.dtos.EventoDTO;
 import com.church.api.entities.Evento;
 import com.church.api.repositories.EventoRepository;
 import com.church.api.services.EventoService;
+import com.church.api.services.exceptions.ObjectNotFoundException;
 import com.querydsl.core.types.Predicate;
 
 @RestController
@@ -48,5 +52,23 @@ public class EventoController extends BaseController<Evento, EventoDTO> {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(evento.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> updateById(
+			@PathVariable Long id,
+			@RequestBody @Valid EventoDTO dto) {
+		
+		Evento oldObj = eventoService.findById(id).orElseThrow(() -> new ObjectNotFoundException("Evento não encontrado"));
+		Evento evento = mapper.map(oldObj, Evento.class);
+		if (Objects.nonNull(evento.getRecorrencia())) {
+			evento.getRecorrencia().setId(oldObj.getRecorrencia().getId());
+		}
+		
+		evento = eventoService.updateById(evento, id);
+		
+		return ResponseEntity.noContent().build();
+		
+		
 	}
 }

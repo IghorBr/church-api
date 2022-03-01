@@ -56,6 +56,7 @@ public class DBServiceImpl {
 		user1.addTemplo(pib);
 		
 		pib.setPastorPresidente(p1);
+		p1.setIgreja(pib);
 		
 		temploService.save(pib);
 		usuarioService.saveAll(Arrays.asList(user1));
@@ -74,25 +75,25 @@ public class DBServiceImpl {
 		temploService.save(pib);
 		
 		Recorrencia recOracaoDomingo = new Recorrencia(null, DiaSemana.DOMINGO, 
-				TipoRecorrencia.ANUAL, "08:00h", null);
+				TipoRecorrencia.ANUAL, "08:00h", 1, null);
 		
 		Recorrencia recEBDDomingo = new Recorrencia(null, DiaSemana.DOMINGO, 
-				TipoRecorrencia.ANUAL, "10:30h", null);
+				TipoRecorrencia.ANUAL, "10:30h", 1, null);
 		
 		Recorrencia recAdoracaoDomingo = new Recorrencia(null, DiaSemana.DOMINGO, 
-				TipoRecorrencia.ANUAL, "18:00h", null);
+				TipoRecorrencia.ANUAL, "18:00h", 1,null);
 		
 		Recorrencia recOracaoTerca = new Recorrencia(null, DiaSemana.TERCA, 
-				TipoRecorrencia.ANUAL, "08:00h", null);
+				TipoRecorrencia.ANUAL, "08:00h", 1, null);
 		
 		Recorrencia recOracaoQuinta = new Recorrencia(null, DiaSemana.QUINTA, 
-				TipoRecorrencia.ANUAL, "19:00h", null);
+				TipoRecorrencia.ANUAL, "19:00h", 1, null);
 		
 		Recorrencia recCultoSegunda = new Recorrencia(null, DiaSemana.SEGUNDA, 
-				TipoRecorrencia.ANUAL, "19:30h", null);
+				TipoRecorrencia.ANUAL, "19:30h", 1, null);
 		
 		Recorrencia recCultoSabado = new Recorrencia(null, DiaSemana.SABADO, 
-				TipoRecorrencia.ANUAL, "07:00h", null);
+				TipoRecorrencia.ANUAL, "07:00h", 1, null);
 		
 		
 		SimpleDateFormat dataHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");

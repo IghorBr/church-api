@@ -1,6 +1,5 @@
 package com.church.api.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +28,7 @@ public class Endereco extends BaseDomain {
 	private String numero;
 	private String bairro;
 	
-	@OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "endereco")
 	private Templo templo;
 
 	public Endereco(Long id, String logradouro, String uf, String municipio, String cep, String numero, String bairro) {

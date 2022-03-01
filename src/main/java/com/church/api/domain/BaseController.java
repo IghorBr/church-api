@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.church.api.services.exceptions.ObjectNotFoundException;
@@ -42,24 +40,12 @@ public abstract class BaseController<T extends BaseDomain, K extends BaseDTO> {
 		K dto = mapper.map(entity, dtoTarget);
 		return ResponseEntity.ok().body(dto);
 	}
-	
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> updateEntity(@PathVariable Long id, @RequestBody K dto) {
-		T entity = baseService.findById(id).orElseThrow(() -> new ObjectNotFoundException("Entidade não encontrada"));
-		entity = mapper.map(dto, entityTarget);
 		
-		entity.setId(id);
-		entity = baseService.updateById(entity, id);
-		
-		return ResponseEntity.noContent().build();
-	}
-	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> deleteEntity(@PathVariable Long id) {
 		baseService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-	
 	
 	protected List<K> mapList(List<T> source) {
 	    return source

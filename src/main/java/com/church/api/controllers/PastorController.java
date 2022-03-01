@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.church.api.dtos.PastorDTO;
 import com.church.api.entities.Pastor;
 import com.church.api.repositories.PastorRepository;
 import com.church.api.services.PastorService;
+import com.church.api.services.exceptions.ObjectNotFoundException;
 import com.querydsl.core.types.Predicate;
 
 @RestController
@@ -48,5 +50,20 @@ public class PastorController extends BaseController<Pastor, PastorDTO> {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(pastor.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	public ResponseEntity<Void> updateById(
+			@PathVariable Long id,
+			@RequestBody @Valid PastorDTO dto) {
+
+		Pastor oldObj = pastorService.findById(id).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+		Pastor pastor = mapper.map(dto, Pastor.class);
+		
+		pastor.setId(id);
+		pastor.setIgreja(oldObj.getIgreja());
+		
+		pastor = pastorService.updateById(pastor, id);
+		
+		return ResponseEntity.noContent().build();
 	}
 }

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +33,9 @@ public class Pastor extends BaseDomain {
 	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataSaida;
+	
+	@OneToOne(mappedBy = "pastorPresidente")
+	private Igreja igreja;
 	
 	public Pastor(Long id, String nome, String sobrenome, Date dataPosse, Date dataSaida) {
 		super();
