@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,8 +45,7 @@ public abstract class Templo extends BaseDomain {
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
 	
-	@OneToMany(mappedBy = "templo")
-	@Setter(value = AccessLevel.NONE)
+	@OneToMany(mappedBy = "templo", fetch = FetchType.LAZY)
 	private List<Evento> eventos = new ArrayList<Evento>();
 	
 	public Templo(Long id, String nomeCompleto, String nomeCurto, Date dataInauguracao, String telefone, Endereco endereco) {

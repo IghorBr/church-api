@@ -1,6 +1,7 @@
 package com.church.api.dtos;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -28,4 +29,6 @@ public class TemploDTO extends BaseDTO {
 	
 	@NotNull private EnderecoDTO endereco;
 	private String cnpj;
+	
+	private List<EventoDTO> eventos;
 }

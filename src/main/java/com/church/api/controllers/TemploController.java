@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,14 @@ public class TemploController extends BaseController<Templo, TemploDTO> {
 			@QuerydslPredicate(root = Templo.class, bindings = TemploRepository.class) Predicate predicate) {
 		
 		List<Templo> templos = temploService.pesquisar(predicate);
-		return ResponseEntity.ok().body(super.mapList(templos));
+		List<TemploDTO> dtos = templos.stream()
+										.map(t -> mapper.map(t, TemploDTO.class))
+										.collect(Collectors.toList());
+		for (TemploDTO t : dtos) {
+			t.setEventos(null);
+		}
+		
+		return ResponseEntity.ok().body(dtos);
 	}
 	
 	@GetMapping(value = "/eventos/{id}")
