@@ -2,6 +2,7 @@ package com.church.api.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -19,11 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.church.api.domain.BaseController;
+import com.church.api.dtos.EventoDTO;
 import com.church.api.dtos.TemploDTO;
 import com.church.api.entities.Congregacao;
+import com.church.api.entities.Evento;
 import com.church.api.entities.Igreja;
 import com.church.api.entities.Templo;
 import com.church.api.repositories.TemploRepository;
+import com.church.api.services.EventoService;
 import com.church.api.services.TemploService;
 import com.church.api.services.exceptions.ObjectNotFoundException;
 import com.querydsl.core.types.Predicate;
@@ -35,8 +39,11 @@ public class TemploController extends BaseController<Templo, TemploDTO> {
 	public TemploController() {
 		super(Templo.class, TemploDTO.class);
 	}
+	
+	private final String NOT_FOUND_MESSAGE = "Templo não encontrado";
 
 	@Autowired private TemploService temploService;
+	@Autowired private EventoService eventoService;
 	
 	@GetMapping(value = "/pesquisar")
 	public ResponseEntity<List<TemploDTO>> pesquisar(
@@ -44,6 +51,15 @@ public class TemploController extends BaseController<Templo, TemploDTO> {
 		
 		List<Templo> templos = temploService.pesquisar(predicate);
 		return ResponseEntity.ok().body(super.mapList(templos));
+	}
+	
+	@GetMapping(value = "/eventos/{id}")
+	public ResponseEntity<List<EventoDTO>> listEventoByTemplo(@PathVariable Long id,
+			@RequestParam(name = "apenasRecorrentes", defaultValue = "false") boolean apenasRecorrentes) {
+		List<Evento> eventos = eventoService.findAllEventosByTemplo(id, apenasRecorrentes);
+		List<EventoDTO> dtos = eventos.stream().map(e -> mapper.map(e, EventoDTO.class)).collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(dtos);
 	}
 	
 	@PostMapping	
@@ -65,7 +81,7 @@ public class TemploController extends BaseController<Templo, TemploDTO> {
 			@RequestParam(name = "isTemplo", required = true) boolean isTemplo,
 			@RequestBody @Valid TemploDTO dto) {
 		
-		Templo oldObj = temploService.findById(id).orElseThrow(() -> new ObjectNotFoundException("Entidade não encontrada"));
+		Templo oldObj = temploService.findById(id).orElseThrow(() -> new ObjectNotFoundException(NOT_FOUND_MESSAGE));
 		
 		Templo templo = Templo.dtoToEntity(isTemplo, dto);
 		templo.setId(id);
@@ -80,7 +96,6 @@ public class TemploController extends BaseController<Templo, TemploDTO> {
 		return ResponseEntity.noContent().build();
 	}
 }
-
 
 
 

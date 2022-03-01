@@ -68,7 +68,5 @@ public class EventoController extends BaseController<Evento, EventoDTO> {
 		evento = eventoService.updateById(evento, id);
 		
 		return ResponseEntity.noContent().build();
-		
-		
 	}
 }
